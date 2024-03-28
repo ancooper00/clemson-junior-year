@@ -1,0 +1,100 @@
+we will use dynamic programming and the bottom up approach to solve this problem.
+We will have two helper functions that will help solve this problem.
+
+One function will be used to construct the maximum length snake sequence from a given tail and matrix 'L[i][j]'
+that holds the maximum length of the snake sequence ending in a cell at i,j.
+The second function will be used to construct the maximum snake sequences to be found by the previous
+function.
+
+In order to print the snake we will backtrack from the tail point that has
+the max length all the way to the snake's head.
+
+//define a object that stores a set of coordinates
+Point
+
+//define a function that finds the path holding the max snake sequence, it will return
+a list of point objects and will take the inital matrix, result matrix, the tail coordinates as input
+list findPath(matrix, results, tail){
+
+  define a list 'path' to return
+
+  add tail to the front of the list
+
+  traverse through the result matrix starting at point tail(x, y) and
+  ending when we are at a coordinate that holds 0 as a value in order to build the path{
+      if the point above our current point is part of a valid path (difference between values is 1){
+          add the above point to our list
+          decrement y coordinate to move up a row for next check
+      }
+      else if the point to the left of our current point is value{
+         add the point to our list
+         decrement x coordinate to move left for next check
+      }
+  }
+
+  return the list called "path" that holds our created path
+
+}
+
+
+
+
+//define a function that finds the maximum length snake sequence and takes the
+provided matrix as input
+void findSnake(input matrix){
+
+  //create a table that stores the results of subproblems that is same size as matrix
+  results[m][m]
+  initialize table to hold 0 in all spaces
+
+  //define variables that hold max length of snake sequence
+  maxLength = 0
+
+  //define variables that store coordinates to snake's tail
+  maxRow = 0
+  maxCol = 0
+
+  //use a nested loop to fill the table in bottom up fashion (dynamic programming)
+  for all points x in row{
+    for all points y in column{
+      //look at all points except for point (0,0)
+      if(x or y){
+
+        look at cell above, if the difference in values held in the cells = 1 (is it a valid path?){
+          //if the new path increased the length, store the new max length in our results table.
+          results[x][y] = the max of results[x][y] and (results[x][y] + 1)
+
+          //check if our new path length is better than our old maxLength
+          if maxLength < results[x][y]{
+            set maxLength = results[x][y]
+            store coordinates of new best snake tail (maxRow = x and maxCol = y)
+          }
+        }
+
+        look at cell to the left, if the path is valid (difference in values = 1){
+          //if the new path increased the length, store the new max length in our results table.
+          results[x][y] = the max of results[x][y] and (results[x][y] + 1)
+
+          //check if our new path length is better than our old maxLength
+          if maxLength < results[x][y]{
+            set maxLength = results[x][y]
+            store coordinates of new best snake tail (maxRow = x and maxCol = y)
+            }
+        }
+
+      }
+    }
+  }
+
+  print out value of maximum length of snake sequence (maxLength)
+
+  call to findPath using input matrix, result matrix and point with the maxRow and maxCol variables
+
+  for all points in list generated in findPath, print value to show the max snake sequence.
+
+
+}
+
+in main{
+  call to findSnake using input matrix as function argument 
+}
